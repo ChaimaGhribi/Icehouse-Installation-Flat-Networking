@@ -33,7 +33,7 @@ Copyright (C) `Marouen Mechtri <https://www.linkedin.com/in/mechtri>`_
 This document provides instructions on how to install and configure OpenStack icehouse on Ubuntu 14.04.
 Here we consider a two-node architecture with legacy networking. It's a simple and easily deployable architecture that requires two node types:  
 
-+ **Controller Node** that runs management services (keystone, Horizon…) needed for OpenStack to function.
++ **Controller Node** that runs management services (keystone, Horizonâ€¦) needed for OpenStack to function.
 
 + **Compute Node** that runs the virtual machine instances in OpenStack. 
 
@@ -59,4 +59,116 @@ It is also used as internal network for traffic between virtual machines.
 
 In the next subsections, we describe how to configure and test the network architecture. We want to make sure everything is ok before install ;)
 
-So, let’s prepare the nodes for OpenStack installation!
+So, letâ€™s prepare the nodes for OpenStack installation!
+
+1.1. Configure Controller node
+------------------------------
+
+* Change to super user mode::
+
+    sudo su
+
+* Set the hostname::
+
+    vi /etc/hostname
+    controller
+
+
+* Edit /etc/hosts::
+
+    vi /etc/hosts
+        
+    #controller
+    10.0.0.11       controller   
+       
+    # compute1  
+    10.0.0.31       compute1
+    
+    
+
+* Edit network settings to configure the interface eth0::
+
+    vi /etc/network/interfaces
+    
+    # The public network interface    
+    auto eth0
+    iface eth0 inet static
+      address 192.168.100.11
+      netmask 255.255.255.0
+      gateway 192.168.100.1
+
+
+    # The management network interface
+    auto eth1
+    iface eth1 inet static
+      address 10.0.0.11
+      netmask 255.255.255.0
+
+* Restart network::
+
+    ifdown eth0 && ifup eth0
+    ifdown eth1 && ifup eth1
+    
+
+1.2. Configure Compute node
+---------------------------
+
+* Change to super user mode::
+
+    sudo su
+
+* Set the hostname::
+
+    vi /etc/hostname
+    compute1
+
+
+* Edit /etc/hosts::
+
+    vi /etc/hosts
+    
+    # compute1
+    10.0.0.31       compute1
+  
+    #controller
+    10.0.0.11       controller
+    
+    
+* Edit network settings to configure the interface eth0::    
+  
+      vi /etc/network/interfaces
+      
+      # The public network interface    
+      auto eth0
+      iface eth0 inet static
+        address 192.168.100.31
+        netmask 255.255.255.0
+        gateway 192.168.100.1
+
+      # The management network interface
+      auto eth1
+      iface eth1 inet static
+        address 10.0.0.31
+        netmask 255.255.255.0
+
+              
+* Restart network::
+
+    ifdown eth0 && ifup eth0
+    ifdown eth1 && ifup eth1        
+
+1.3. Verify connectivity
+------------------------
+
+    
+* From the controller node::
+
+    # ping the management interface on the compute node:
+    ping compute1
+    
+    
+* From the compute node::
+
+    # ping the management interface on the controller node:
+    ping controller    
+    
