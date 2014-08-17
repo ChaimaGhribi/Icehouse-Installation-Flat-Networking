@@ -90,7 +90,7 @@ So, let’s prepare the nodes for OpenStack installation!
 
     vi /etc/network/interfaces
     
-    # The public network interface    
+    # The external network interface    
     auto eth0
     iface eth0 inet static
       address 192.168.100.11
@@ -138,7 +138,7 @@ So, let’s prepare the nodes for OpenStack installation!
   
       vi /etc/network/interfaces
       
-      # The public network interface    
+      # The external network interface    
       auto eth0
       iface eth0 inet static
         address 192.168.100.31
