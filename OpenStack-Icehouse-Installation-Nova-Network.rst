@@ -526,3 +526,215 @@ Now everything is ok :) So let's go ahead and install it !
 
     source creds
     nova image-list
+
+
+2.1.5 Configure legacy networking
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+* Edit the /etc/nova/nova.conf file and add the following keys to the [DEFAULT] section::
+    
+    vi /etc/nova/nova.conf
+
+    [DEFAULT]
+    network_api_class = nova.network.api.API
+    security_group_api = nova
+
+
+* Restart the Compute services::
+
+    service nova-api restart
+    service nova-scheduler restart
+    service nova-conductor restart    
+    
+
+2.1.6 Install the dashboard Service (Horizon)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Install the required packages::
+
+    apt-get install -y apache2 memcached libapache2-mod-wsgi openstack-dashboard
+
+* You can remove the openstack-dashboard-ubuntu-theme package::
+
+    apt-get remove -y --purge openstack-dashboard-ubuntu-theme
+
+* Edit /etc/openstack-dashboard/local_settings.py::
+    
+    vi /etc/openstack-dashboard/local_settings.py
+    ALLOWED_HOSTS = '*'
+    OPENSTACK_HOST = "controller"
+
+* Reload Apache and memcached::
+
+    service apache2 restart; service memcached restart
+
+
+* Check OpenStack Dashboard at http://controller/horizon. login admin/admin_pass
+
+
+
+2.2. Compute Node
+-----------------
+
+.. image:: https://raw.githubusercontent.com/ChaimaGhribi/Icehouse-Installation-Flat-Networking/master/images/compute.jpg
+
+
+* Update and Upgrade your System::
+
+    apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y
+
+
+* Install ntp service::
+    
+    apt-get install -y ntp
+
+* Check that your hardware supports virtualization::
+
+    apt-get install -y cpu-checker
+    kvm-ok
+
+* Install and configure kvm::
+
+    apt-get install -y kvm libvirt-bin pm-utils
+
+* Install the Compute packages::
+
+    apt-get install -y nova-compute-kvm python-guestfs
+
+* Make the current kernel readable::
+
+    dpkg-statoverride  --update --add root root 0644 /boot/vmlinuz-$(uname -r)
+
+* Enable this override for all future kernel updates, create the file /etc/kernel/postinst.d/statoverride containing::
+
+    vi /etc/kernel/postinst.d/statoverride
+    #!/bin/sh
+    version="$1"
+    # passing the kernel version is required
+    [ -z "${version}" ] && exit 0
+    dpkg-statoverride --update --add root root 0644 /boot/vmlinuz-${version}
+
+* Make the file executable::
+
+    chmod +x /etc/kernel/postinst.d/statoverride
+    
+    
+
+* Modify the /etc/nova/nova.conf like this::
+
+    
+    vi /etc/nova/nova.conf
+    
+    [DEFAULT]
+    auth_strategy = keystone
+    rpc_backend = rabbit
+    rabbit_host = controller
+    my_ip = 10.0.0.31
+    vnc_enabled = True
+    vncserver_listen = 0.0.0.0
+    vncserver_proxyclient_address = 10.0.0.31
+    novncproxy_base_url = http://controller:6080/vnc_auto.html
+    glance_host = controller
+    
+    [database]
+    connection = mysql://nova:NOVA_DBPASS@controller/nova
+    
+    [keystone_authtoken]
+    auth_uri = http://controller:5000
+    auth_host = controller
+    auth_port = 35357
+    auth_protocol = http
+    admin_tenant_name = service
+    admin_user = nova
+    admin_password = service_pass    
+
+
+
+* Delete /var/lib/nova/nova.sqlite file::
+    
+    rm /var/lib/nova/nova.sqlite
+
+
+* Install legacy networking components::
+
+    apt-get install -y nova-network nova-api-metadata
+
+
+* Edit /etc/nova/nova.conf::
+
+    vi /etc/nova/nova.conf
+    
+    network_api_class = nova.network.api.API
+    security_group_api = nova
+    network_size = 254
+    allow_same_net_traffic = False
+    multi_host = True
+    send_arp_for_ha = True
+    share_dhcp_address = True
+    force_dhcp_release = True
+    firewall_driver = nova.virt.libvirt.firewall.IptablesFirewallDriver
+    network_manager = nova.network.manager.FlatDHCPManager
+    flat_network_bridge = br100
+    flat_interface = eth0
+    vlan_interface = eth0
+    public_interface = br100
+
+
+* Edit /etc/sysctl.conf::
+
+    vi  /etc/sysctl.conf
+    net.ipv4.ip_forward=1
+
+* Implement the changes::
+
+    sysctl -p
+
+
+* Restart services::
+
+    service nova-compute restart
+    service nova-network restart
+    service nova-api-metadata restart
+    
+
+* Check Nova is running. The :-) icons indicate that everything is ok !::
+
+    nova-manage service list    
+    
+
+
+That was the installation in steps! 
+
+Your contributions are welcome, as are questions and requests for help :)
+
+Hope this manual will be helpful and simple!
+
+3. License
+==========
+Institut Mines Télécom - Télécom SudParis  
+
+Copyright (C) 2014  Authors
+
+Original Authors - Chaima Ghribi and Marouen Mechtri
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except 
+
+in compliance with the License. You may obtain a copy of the License at::
+
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+
+4. Contacts
+===========
+
+Chaima Ghribi: chaima.ghribi@it-sudparis.eu
+
+Marouen Mechtri : marouen.mechtri@it-sudparis.eu
