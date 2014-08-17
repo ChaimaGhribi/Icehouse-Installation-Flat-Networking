@@ -1,11 +1,11 @@
 OpenStack Icehouse Installation: Two-node architecture with legacy networking (nova-network)
-============================================================================================
+--------------------------------------------------------------------------------------------
 
 
 This document provides instructions on how to install and configure OpenStack icehouse on Ubuntu 14.04.
 Here we consider a two-node architecture with legacy networking. It's a simple and easily deployable architecture that requires two node types:  
 
-+ **Controller Node** that runs management services (keystone, Horizon…) needed for OpenStack to function.
++ **Controller Node** that runs management services (keystone, Horizonâ€¦) needed for OpenStack to function.
 
 + **Compute Node** that runs the virtual machine instances in OpenStack. 
 
