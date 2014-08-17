@@ -86,7 +86,7 @@ So, let’s prepare the nodes for OpenStack installation!
     
     
 
-* Edit network settings to configure the interface eth0::
+* Edit network settings to configure interfaces eth0 and eth1::
 
     vi /etc/network/interfaces
     
@@ -134,7 +134,7 @@ So, let’s prepare the nodes for OpenStack installation!
     10.0.0.11       controller
     
     
-* Edit network settings to configure the interface eth0::    
+* Edit network settings to configure interfaces eth0 and eth1::    
   
       vi /etc/network/interfaces
       
