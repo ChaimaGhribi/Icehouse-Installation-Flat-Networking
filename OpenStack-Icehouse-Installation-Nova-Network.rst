@@ -677,8 +677,7 @@ Now everything is ok :) So let's go ahead and install it !
     network_manager = nova.network.manager.FlatDHCPManager
     flat_network_bridge = br100
     flat_interface = eth0
-    vlan_interface = eth0
-    public_interface = br100
+    public_interface = eth0
 
 
 * Edit /etc/sysctl.conf::
