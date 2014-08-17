@@ -13,5 +13,5 @@ We have deployed a single compute node (see the Figure below) but you can simply
 
 ![Network Configuration Example](https://raw.githubusercontent.com/ChaimaGhribi/OpenStack-Icehouse-Installation-Nova-Network/master/images/two-node-topo.jpg)
 
-Unlike our [previous manual] (<https://github.com/ChaimaGhribi/OpenStack-Icehouse-Installation>), in which we considered a multi-node architecture with Openstack Networking (Neutron), this manual
+Unlike our [previous manual] (<https://github.com/ChaimaGhribi/OpenStack-Icehouse-Installation>), in which we considered a multi-node architecture with Openstack Networking (Neutron), [this manual](https://github.com/ChaimaGhribi/Icehouse-Installation-Flat-Networking/blob/master/OpenStack-Icehouse-Installation-Nova-Network.rst)
 details how to deploy OpenStack using a flat networking model. 
