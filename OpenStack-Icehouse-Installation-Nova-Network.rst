@@ -41,7 +41,7 @@ We have deployed a single compute node (see the Figure below) but you can simply
 
 
 
-.. image:: https://raw.githubusercontent.com/ChaimaGhribi/OpenStack-Icehouse-Installation-Nova-Network/master/images/two-node-topo.jpg
+.. image:: https://raw.githubusercontent.com/ChaimaGhribi/Icehouse-Installation-Flat-Networking/master/images/two-node-topo.jpg
 
 
 
