@@ -1,0 +1,45 @@
+####
+Create your first instance with Nova network
+####
+
+=============================
+
+**Authors:**
+
+Copyright (C) Chaima Ghribi
+
+Copyright (C) Marouen Mechtri
+
+=============================
+
+In this guide we will show you how to create an instance with Nova network in few steps.
+
+You will need to create your image first. After creating the image, create the network to which the instance will connect.
+Finally, launch your instance and associate a floating IP address to it! 
+
+Below are the steps in details ;)
+
+1. Create your image
+======================
+
+* Create a simple credential file::
+
+    vi creds
+    #Paste the following:
+    export OS_TENANT_NAME=admin
+    export OS_USERNAME=admin
+    export OS_PASSWORD=admin_pass
+    export OS_AUTH_URL="http://controller:5000/v2.0/"
+
+* Upload the cirros cloud image::
+
+    source creds
+    glance image-create --name "cirros-0.3.2-x86_64" --is-public true \
+    --container-format bare --disk-format qcow2 \
+    --location http://cdn.download.cirros-cloud.net/0.3.2/cirros-0.3.2-x86_64-disk.img
+
+* List Images::
+
+    glance image-list
+    
+
