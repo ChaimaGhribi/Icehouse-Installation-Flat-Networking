@@ -11,7 +11,7 @@ Here we consider a two-node architecture with legacy networking. It's a simple a
 
 We have deployed a single compute node (see the Figure below) but you can simply add more compute nodes, if needed.  
 
-![Network Configuration Example](https://raw.githubusercontent.com/ChaimaGhribi/OpenStack-Icehouse-Installation-Nova-Network/master/images/two-node-topo.jpg)
+![Network Configuration Example](https://raw.githubusercontent.com/ChaimaGhribi/Icehouse-Installation-Flat-Networking/master/images/two-node-topo.jpg)
 
 Unlike our [previous manual] (<https://github.com/ChaimaGhribi/OpenStack-Icehouse-Installation>), in which we considered a multi-node architecture with Openstack Networking (Neutron), this manual
 details how to deploy OpenStack using a flat networking model. 
