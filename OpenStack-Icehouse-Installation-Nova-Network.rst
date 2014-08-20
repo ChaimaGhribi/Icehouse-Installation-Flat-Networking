@@ -696,7 +696,7 @@ Now everything is ok :) So let's go ahead and install it !
 That was the installation in steps! 
 
 If you want to create your first instance with Nova-Network, follow the instructions in our guide available
-here ` Create-your-instance-with-Nova-Network <https://github.com/ChaimaGhribi/Icehouse-Installation-Flat-Networking/blob/master/Create-your-instance-with-Nova-network.rst>`_.   
+here `Create-your-instance-with-Nova-Network <https://github.com/ChaimaGhribi/Icehouse-Installation-Flat-Networking/blob/master/Create-your-instance-with-Nova-network.rst>`_ .   
 
 
 Your contributions are welcome, as are questions and requests for help :)
