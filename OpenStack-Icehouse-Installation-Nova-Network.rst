@@ -51,10 +51,9 @@ details how to deploy OpenStack using a flat networking model.
 You need to create two networks:
 
 
-+ **Management Network** (10.0.0.0/24): A network segment used for administration, not accessible to the public Internet.
++ **Management Network** (10.0.0.0/24): A network segment used for administration.
 
-+ **VM Traffic & External Network** (192.168.100.0/24): This network is connected to the controller node so users can access the OpenStack interfaces.
-It is also used as internal network for traffic between virtual machines.
++ **VM Traffic & External Network** (192.168.100.0/24): This network is used to expose VM to the internet. It is also used as internal network for traffic between virtual machines.
 
 
 In the next subsections, we describe how to configure and test the network architecture. We want to make sure everything is ok before install ;)
@@ -86,21 +85,13 @@ So, let’s prepare the nodes for OpenStack installation!
     
     
 
-* Edit network settings to configure interfaces eth0 and eth1::
+* Edit network settings to configure the eth0 interface::
 
     vi /etc/network/interfaces
     
-    # The external network interface    
+    # The management network interface
     auto eth0
     iface eth0 inet static
-      address 192.168.100.11
-      netmask 255.255.255.0
-      gateway 192.168.100.1
-
-
-    # The management network interface
-    auto eth1
-    iface eth1 inet static
       address 10.0.0.11
       netmask 255.255.255.0
       gateway 10.0.0.1
@@ -108,7 +99,6 @@ So, let’s prepare the nodes for OpenStack installation!
 * Restart network::
 
     ifdown eth0 && ifup eth0
-    ifdown eth1 && ifup eth1
     
 
 1.2. Configure Compute node
@@ -151,7 +141,6 @@ So, let’s prepare the nodes for OpenStack installation!
       iface eth1 inet static
         address 10.0.0.31
         netmask 255.255.255.0
-        gateway 10.0.0.1
               
 * Restart network::
 
