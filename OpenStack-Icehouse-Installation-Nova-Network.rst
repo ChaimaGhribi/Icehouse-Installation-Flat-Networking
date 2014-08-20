@@ -103,6 +103,7 @@ So, let’s prepare the nodes for OpenStack installation!
     iface eth1 inet static
       address 10.0.0.11
       netmask 255.255.255.0
+      gateway 10.0.0.1
 
 * Restart network::
 
@@ -150,7 +151,7 @@ So, let’s prepare the nodes for OpenStack installation!
       iface eth1 inet static
         address 10.0.0.31
         netmask 255.255.255.0
-
+        gateway 10.0.0.1
               
 * Restart network::
 
