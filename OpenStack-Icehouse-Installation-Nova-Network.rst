@@ -27,8 +27,8 @@ Copyright (C) `Marouen Mechtri <https://www.linkedin.com/in/mechtri>`_
 
 
 
-1. Basic Architecture & Network Configuration
-=============================================
+Basic Architecture and Network Configuration
+============================================
 
 This document provides instructions on how to install and configure OpenStack icehouse on Ubuntu 14.04.
 Here we consider a two-node architecture with legacy networking. It's a simple and easily deployable architecture that requires two node types:  
@@ -60,8 +60,8 @@ In the next subsections, we describe how to configure and test the network archi
 
 So, let’s prepare the nodes for OpenStack installation!
 
-1.1. Configure Controller node
-------------------------------
+Configure Controller node
+-------------------------
 
 * Change to super user mode::
 
@@ -101,8 +101,8 @@ So, let’s prepare the nodes for OpenStack installation!
     ifdown eth0 && ifup eth0
     
 
-1.2. Configure Compute node
----------------------------
+Configure Compute node
+----------------------
 
 * Change to super user mode::
 
@@ -147,8 +147,8 @@ So, let’s prepare the nodes for OpenStack installation!
     ifdown eth0 && ifup eth0
     ifdown eth1 && ifup eth1        
 
-1.3. Verify connectivity
-------------------------
+Verify connectivity
+-------------------
 
     
 * From the controller node::
@@ -162,19 +162,19 @@ So, let’s prepare the nodes for OpenStack installation!
     # ping the management interface on the controller node:
     ping controller    
     
-2. Install 
-==========
+Install 
+=======
 
 Now everything is ok :) So let's go ahead and install it !
 
 
-2.1. Controller Node
---------------------
+Controller Node
+---------------
 
 .. image:: https://raw.githubusercontent.com/ChaimaGhribi/Icehouse-Installation-Flat-Networking/master/images/controller.jpg
 
-2.1.1 Install the supporting services (MySQL and RabbitMQ)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Install the supporting services (MySQL and RabbitMQ)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * Update and Upgrade your System::
     
@@ -217,8 +217,8 @@ Now everything is ok :) So let's go ahead and install it !
 
    apt-get install -y rabbitmq-server
 
-2.1.2 Install the Identity Service (Keystone)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Install the Identity Service (Keystone)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 * Install keystone packages::
 
     apt-get install -y keystone
@@ -331,8 +331,8 @@ Now everything is ok :) So let's go ahead and install it !
     keystone user-list
     keystone user-role-list --user admin --tenant admin
 
-2.1.3 Install the image Service (Glance)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Install the image Service (Glance)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * Install Glance packages::
 
@@ -429,8 +429,8 @@ Now everything is ok :) So let's go ahead and install it !
 
     glance image-list
 
-2.1.4 Install the compute Service (Nova)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Install the compute Service (Nova)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 * Install nova packages::
@@ -518,8 +518,8 @@ Now everything is ok :) So let's go ahead and install it !
     nova image-list
 
 
-2.1.5 Configure legacy networking
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Configure legacy networking
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 * Edit the /etc/nova/nova.conf file and add the following keys to the [DEFAULT] section::
@@ -538,8 +538,8 @@ Now everything is ok :) So let's go ahead and install it !
     service nova-conductor restart    
     
 
-2.1.6 Install the dashboard Service (Horizon)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Install the dashboard Service (Horizon)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * Install the required packages::
 
@@ -564,8 +564,8 @@ Now everything is ok :) So let's go ahead and install it !
 
 
 
-2.2. Compute Node
------------------
+Compute Node
+------------
 
 .. image:: https://raw.githubusercontent.com/ChaimaGhribi/Icehouse-Installation-Flat-Networking/master/images/compute.jpg
 
@@ -703,8 +703,8 @@ Your contributions are welcome, as are questions and requests for help :)
 
 Hope this manual will be helpful and simple!
 
-3. License
-==========
+License
+=======
 Institut Mines Télécom - Télécom SudParis  
 
 Copyright (C) 2014  Authors
@@ -725,8 +725,8 @@ in compliance with the License. You may obtain a copy of the License at::
     limitations under the License.
 
 
-4. Contacts
-===========
+Contacts
+========
 
 Chaima Ghribi: chaima.ghribi@it-sudparis.eu
 
